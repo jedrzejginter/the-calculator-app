@@ -11,7 +11,7 @@ Vite is used as a zero-config bundler.
 
 To run this app, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/monterail/mckinsey-calculator-app.git mckinsey-calculator-app`
-2. Navigate to the project directory: `cd mckinsey-calculator-app`
+1. Clone the repository: `git clone https://github.com/monterail/the-calculator-app.git the-calculator-app`
+2. Navigate to the project directory: `cd the-calculator-app`
 3. Install the dependencies: `npm install`
 4. Run the app: `npm run dev`
