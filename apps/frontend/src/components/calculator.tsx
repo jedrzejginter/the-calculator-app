@@ -1,6 +1,8 @@
 import type { MouseEvent } from 'react';
+import { StateKind } from '../constants';
 
 type UseCalculator = () => {
+  state: StateKind;
   displayValue: string | number;
   handleClick: (event: MouseEvent<HTMLButtonElement>) => void;
 };
@@ -14,7 +16,9 @@ export function Calculator({ useCalculator }: Props) {
 
   return (
     <div className="calculator">
-      <div className="display">{calculator.displayValue}</div>
+      <div className="display">
+        {calculator.state === StateKind.LOADING ? '(Loading...)' : calculator.displayValue}
+      </div>
       <div className="buttons">
         {['AC', '7', '8', '9', '/', '4', '5', '6', '*', '1', '2', '3', '-', '0', '.', '=', '+'].map(
           (keyboardItem) => (

@@ -1,11 +1,6 @@
 import { MouseEvent, useRef, useState } from 'react';
 import { ActionEnum, OperatorEnum, isOperator } from '@workspace/core';
-
-enum StateKind {
-  LOADING = 'loading',
-  ERROR = 'error',
-  NEUTRAL = 'neutral',
-}
+import { StateKind } from '../constants';
 
 type State = {
   readonly kind: StateKind;
@@ -15,7 +10,7 @@ type State = {
 };
 
 const initialState: State = Object.freeze({
-  kind: StateKind.NEUTRAL,
+  kind: StateKind.READY,
   value: '0',
   operator: null,
   operand: null,
@@ -31,6 +26,8 @@ export function useCalculator() {
     try {
       fetchController.current = new AbortController();
 
+      setState((prevState) => ({ ...prevState, kind: StateKind.LOADING }));
+
       const response = await fetch(`http://0.0.0.0:3001/calculate`, {
         method: 'POST',
         body: JSON.stringify(input),
@@ -40,10 +37,14 @@ export function useCalculator() {
         },
       });
 
+      if (response.status !== 201) {
+        throw new Error('Calculation Error');
+      }
+
       const json: { result: string } = await response.json();
 
       setState({
-        kind: StateKind.NEUTRAL,
+        kind: StateKind.READY,
         value: json.result,
         operator: null,
         operand: null,
@@ -71,7 +72,7 @@ export function useCalculator() {
       case OperatorEnum.MULTIPLY:
       case OperatorEnum.DIVIDE: {
         setState((prevState) => ({
-          kind: StateKind.NEUTRAL,
+          kind: StateKind.READY,
           operand: prevState.value,
           operator: value,
           value: '0',
@@ -97,7 +98,7 @@ export function useCalculator() {
         setState((prevState) => {
           if (state.kind === StateKind.ERROR) {
             return {
-              kind: StateKind.NEUTRAL,
+              kind: StateKind.READY,
               operand: null,
               operator: null,
               value,
@@ -107,7 +108,7 @@ export function useCalculator() {
           if (state.value === '0') {
             return {
               ...prevState,
-              kind: StateKind.NEUTRAL,
+              kind: StateKind.READY,
               value,
             };
           }
@@ -122,7 +123,8 @@ export function useCalculator() {
   };
 
   return {
-    displayValue: state.value,
+    state: state.kind,
+    displayValue: state.kind === StateKind.ERROR ? 'Error' : state.value,
     operator: state.operator,
     operand: state.operand,
     handleClick,

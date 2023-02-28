@@ -23,7 +23,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ES2022",
+    "target": "ES5",
     "useUnknownInCatchVariables": true
   },
   "include": ["src"]

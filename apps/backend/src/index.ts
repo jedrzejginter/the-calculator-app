@@ -19,3 +19,7 @@ app.use('*', (_req, res) => {
 app.listen(serverPort, () => {
   console.log(`Listening on ${serverPort}`);
 });
+
+process.on('SIGINT', function () {
+  process.exit();
+});
