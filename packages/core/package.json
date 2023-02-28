@@ -1,0 +1,16 @@
+{
+  "name": "@workspace/core",
+  "private": true,
+  "version": "0.0.0",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "18.14.2",
+    "rimraf": "4.1.2",
+    "typescript": "4.9.3"
+  }
+}
