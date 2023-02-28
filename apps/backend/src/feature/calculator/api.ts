@@ -1,6 +1,6 @@
+import { OperatorEnum } from '@workspace/core';
 import { Router } from 'express';
 import { z } from 'zod';
-import { OperatorEnum } from '@workspace/core';
 
 import { calculate } from './lib';
 
@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
   const validation = await bodySchema.safeParseAsync(req.body);
 
   if (validation.success !== true) {
-    res.status(400).json({ status: 'error', errors: validation.error.format() });
+    res.status(400).json({ status: 'error', errors: ['INVALID_BODY'] });
     return;
   }
 
@@ -29,7 +29,10 @@ router.post('/', async (req, res) => {
   });
 
   if (result instanceof Error) {
-    res.status(400).json({ status: 'error' });
+    res.status(400).json({
+      status: 'error',
+      errors: [result.message],
+    });
     return;
   }
 

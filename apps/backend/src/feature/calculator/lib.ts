@@ -20,7 +20,7 @@ export function calculate(input: {
     }
     case OperatorEnum.DIVIDE: {
       if (parseFloat(input.value) === 0) {
-        return new Error('DIV_0');
+        return new Error('DIVISION_BY_0');
       }
 
       return operandAsNumber / valueAsNumber;

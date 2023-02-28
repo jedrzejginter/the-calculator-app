@@ -1,5 +1,6 @@
-import { MouseEvent, useRef, useState } from 'react';
 import { ActionEnum, OperatorEnum, isOperator } from '@workspace/core';
+import { MouseEvent, useRef, useState } from 'react';
+
 import { StateKind } from '../constants';
 
 type State = {
@@ -20,7 +21,7 @@ export function useCalculator() {
   const [state, setState] = useState<State>(initialState);
   const fetchController = useRef<AbortController>();
 
-  const apiCall = async (input: { operand: string; operator: OperatorEnum; value: string }) => {
+  const fetchResult = async (input: { operand: string; operator: OperatorEnum; value: string }) => {
     fetchController.current?.abort();
 
     try {
@@ -69,9 +70,9 @@ export function useCalculator() {
   };
 
   const handleClick = async (evt: MouseEvent<HTMLButtonElement>) => {
-    const { value } = evt.currentTarget;
+    const clickedValue = evt.currentTarget.value;
 
-    switch (value) {
+    switch (clickedValue) {
       case OperatorEnum.ADD:
       case OperatorEnum.SUBTRACT:
       case OperatorEnum.MULTIPLY:
@@ -79,7 +80,7 @@ export function useCalculator() {
         setState((prevState) => ({
           kind: StateKind.READY,
           operand: prevState.value,
-          operator: value,
+          operator: clickedValue,
           value: '0',
         }));
         break;
@@ -95,7 +96,7 @@ export function useCalculator() {
           break;
         }
 
-        await apiCall({ operand, operator, value });
+        await fetchResult({ operand, operator, value });
 
         break;
       }
@@ -106,7 +107,7 @@ export function useCalculator() {
               kind: StateKind.READY,
               operand: null,
               operator: null,
-              value,
+              value: clickedValue,
             };
           }
 
@@ -114,13 +115,13 @@ export function useCalculator() {
             return {
               ...prevState,
               kind: StateKind.READY,
-              value,
+              value: clickedValue,
             };
           }
 
           return {
             ...state,
-            value: prevState.value + value,
+            value: prevState.value + clickedValue,
           };
         });
       }

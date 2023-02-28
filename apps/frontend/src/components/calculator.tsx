@@ -16,7 +16,7 @@ export function Calculator({ useCalculator }: Props) {
 
   return (
     <div className="calculator">
-      <div className="display">
+      <div className="display" role="combobox">
         {calculator.state === StateKind.LOADING ? 'Wait...' : calculator.displayValue}
       </div>
       <div className="buttons">

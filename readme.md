@@ -9,6 +9,7 @@ A simple calculator app that performs basic arithmetic operations like addition,
 - Turborepo
 - TypeScript
 - Docker
+- Jest, React Testing Library, Supertest
 
 ## Source
 

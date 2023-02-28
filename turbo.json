@@ -1,6 +1,5 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "globalDependencies": ["**/.env"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
@@ -11,10 +10,16 @@
       "dependsOn": ["^build"],
       "cache": false
     },
+    "lint": {
+      "outputs": []
+    },
     "start": {
       "persistent": true,
       "dependsOn": ["build", "^build"],
       "cache": false
+    },
+    "test": {
+      "outputs": []
     },
     "typecheck": {
       "dependsOn": ["^build"],

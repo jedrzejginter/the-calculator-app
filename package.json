@@ -1,16 +1,18 @@
 {
   "name": "the-calculator-app",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
-    "dev": "turbo run dev",
     "build": "turbo run build",
-    "typecheck": "turbo run typecheck",
-    "start": "turbo run start",
+    "dev": "turbo run dev",
     "docker:build": "COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose -f docker-compose.yml build",
+    "docker:kill": "docker kill $(docker ps -q) && docker rm $(docker ps -a -q)",
     "docker:start": "docker-compose -f docker-compose.yml up",
-    "docker:kill": "docker kill $(docker ps -q) && docker rm $(docker ps -a -q)"
+    "lint": "turbo run lint",
+    "start": "turbo run start",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck"
   },
   "dependencies": {
     "turbo": "1.8.3"
