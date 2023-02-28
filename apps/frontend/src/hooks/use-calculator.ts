@@ -43,7 +43,7 @@ export function useCalculator() {
       // to ready/error.
       await new Promise((resolve) => setTimeout(resolve, 300));
 
-      if (response.status !== 201) {
+      if (!String(response.status).startsWith('2')) {
         throw new Error('Calculation Error');
       }
 

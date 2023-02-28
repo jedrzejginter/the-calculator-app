@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import { Calculator } from '../components/calculator';
 import { useCalculator } from '../hooks/use-calculator';
 

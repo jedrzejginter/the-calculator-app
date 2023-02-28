@@ -1,4 +1,6 @@
+import { ActionEnum, OperatorEnum } from '@workspace/core';
 import type { MouseEvent } from 'react';
+
 import { StateKind } from '../constants';
 
 type UseCalculator = () => {
@@ -16,23 +18,39 @@ export function Calculator({ useCalculator }: Props) {
 
   return (
     <div className="calculator">
-      <div className="display" role="combobox">
+      <div className="display" role="combobox" aria-expanded={false}>
         {calculator.state === StateKind.LOADING ? 'Wait...' : calculator.displayValue}
       </div>
       <div className="buttons">
-        {['AC', '7', '8', '9', '/', '4', '5', '6', '*', '1', '2', '3', '-', '0', '.', '=', '+'].map(
-          (keyboardItem) => (
-            <button
-              key={keyboardItem}
-              className="button"
-              onClick={calculator.handleClick}
-              type="button"
-              value={keyboardItem}
-            >
-              {keyboardItem}
-            </button>
-          ),
-        )}
+        {[
+          ActionEnum.RESET,
+          '7',
+          '8',
+          '9',
+          OperatorEnum.DIVIDE,
+          '4',
+          '5',
+          '6',
+          OperatorEnum.MULTIPLY,
+          '1',
+          '2',
+          '3',
+          OperatorEnum.SUBTRACT,
+          '0',
+          '.',
+          ActionEnum.GET_RESULT,
+          OperatorEnum.ADD,
+        ].map((keyboardItem) => (
+          <button
+            key={keyboardItem}
+            className="button"
+            onClick={calculator.handleClick}
+            type="button"
+            value={keyboardItem}
+          >
+            {keyboardItem}
+          </button>
+        ))}
       </div>
     </div>
   );
