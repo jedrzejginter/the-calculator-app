@@ -37,6 +37,11 @@ export function useCalculator() {
         },
       });
 
+      // Add artificial delay so we don't have the ui
+      // flickering when we quickly change the state from loading
+      // to ready/error.
+      await new Promise((resolve) => setTimeout(resolve, 300));
+
       if (response.status !== 201) {
         throw new Error('Calculation Error');
       }
