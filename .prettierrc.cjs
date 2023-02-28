@@ -1,1 +1,1 @@
-module.exports = require('@monteway/prettier/config')
+module.exports = require('@monteway/prettier/config');
