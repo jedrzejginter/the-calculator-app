@@ -6,8 +6,15 @@ A simple calculator app that performs basic arithmetic operations like addition,
 
 - Next.js, React (frontend)
 - Node.js, Express.js (backend)
+- Turborepo
 - TypeScript
 - Docker
+
+## Source
+
+- `apps/backend` - Express.js API
+- `apps/frontend` - Next.js app
+- `packages/core` - code to share between frontend and backend
 
 ## Running locally
 
