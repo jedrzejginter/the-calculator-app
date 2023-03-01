@@ -1,29 +1,26 @@
 import { OperatorEnum } from '@workspace/core';
 
 export function calculate(input: {
-  value: string;
+  value: number;
   operator: OperatorEnum;
-  operand: string;
+  operand: number;
 }): number | Error {
-  const valueAsNumber: number = parseFloat(input.value);
-  const operandAsNumber: number = parseFloat(input.operand);
-
   switch (input.operator) {
     case OperatorEnum.ADD: {
-      return operandAsNumber + valueAsNumber;
+      return input.operand + input.value;
     }
     case OperatorEnum.SUBTRACT: {
-      return operandAsNumber - valueAsNumber;
+      return input.operand - input.value;
     }
     case OperatorEnum.MULTIPLY: {
-      return operandAsNumber * valueAsNumber;
+      return input.operand * input.value;
     }
     case OperatorEnum.DIVIDE: {
-      if (parseFloat(input.value) === 0) {
+      if (input.value === 0) {
         return new Error('DIVISION_BY_0');
       }
 
-      return operandAsNumber / valueAsNumber;
+      return input.operand / input.value;
     }
     default: {
       return new Error('UNKNOWN_OPERATOR');
