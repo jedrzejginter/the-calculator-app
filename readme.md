@@ -9,7 +9,7 @@ A simple calculator app that performs basic arithmetic operations like addition,
 - Turborepo
 - TypeScript
 - Docker
-- Jest, React Testing Library, Supertest
+- Jest, React Testing Library, MSW, Supertest
 
 ## Source
 
@@ -21,28 +21,60 @@ A simple calculator app that performs basic arithmetic operations like addition,
 
 > You need Node in version 18 (or higher) installed beforehand.
 
-```shell
-# Step 1
-# Install npm dependencies.
-npm install
+Install npm dependencies:
 
-# Step 2
-# Run apps in dev mode.
+```shell
+npm install
+```
+
+Run apps in dev mode:
+
+```shell
 npm run dev
+```
+
+You can now access services:
+
+```
+frontend http://localhost:3000
+backend  http://localhost:3001
 ```
 
 ## Running via Docker
 
+Firstly create a network, which allows containers to communicate:
+
 ```shell
-# Step 1
-# Create a network, which allows containers to communicate.
 docker network calculator-network
+```
 
-# Step 2
-# Build docker images for backend and frontend.
+Then, build docker images for backend and frontend:
+
+```shell
 npm run docker:build
+```
 
-# Step 3
-# Run docker containers.
+Finally, run docker containers:
+
+```shell
 npm run docker:start
 ```
+
+_Ports used by dockerized services are the same as in "Running locally" section._
+
+## Tests
+
+All packages and apps have tests using Jest as a test runner.\
+To run tests for all workspaces:
+
+```shell
+npm run test
+```
+
+To run tests for specific app/package (in this example: frontend):
+
+```shell
+npm run test -- --filter=@workspace/frontend
+```
+
+_The value of the `--filter` argument comes from the `package.json` of targeted workspace._

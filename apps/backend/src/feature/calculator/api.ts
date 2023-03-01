@@ -6,10 +6,20 @@ import { calculate } from './lib';
 
 const router = Router();
 
+const numberRegex = /^-?(0|[1-9]\d*)(\.\d+)?$/;
+
 const bodySchema = z.object({
   operator: z.nativeEnum(OperatorEnum),
-  value: z.string(),
-  operand: z.string(),
+  value: z
+    .string()
+    .regex(numberRegex)
+    .transform((arg) => Number(arg))
+    .or(z.number()),
+  operand: z
+    .string()
+    .regex(numberRegex)
+    .transform((arg) => Number(arg))
+    .or(z.number()),
 });
 
 router.post('/', async (req, res) => {
